@@ -26,7 +26,6 @@ import {
 } from '@chakra-ui/react'
 import {
   FiMenu,
-  FiBell,
   FiChevronDown,
 } from 'react-icons/fi'
 import {
@@ -146,16 +145,8 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         icon={<FiMenu />}
       />
 
-      <Image 
-        display={{ base: 'flex', md: 'none' }}
-        fontSize="10"
-        fontFamily="monospace"
-        fontWeight="bold" 
-        alt="logo"
-        src="/images/logo.svg"
-        />
-
         <Box
+        ml={5}
         mr={{ base:"auto"}}
         hideBelow={'lg'}
         >
