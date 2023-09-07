@@ -22,7 +22,8 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
-  Image
+  Image,
+  Grid,
 } from '@chakra-ui/react'
 import {
   FiMenu,
@@ -36,11 +37,6 @@ import {
   BsCreditCard,
 } from 'react-icons/bs'
 import { IconType } from 'react-icons'
-
-interface LinkItemProps {
-  name: string
-  icon: IconType
-}
 
 interface NavItemProps extends FlexProps {
   icon: IconType
@@ -59,30 +55,30 @@ interface SidebarNavProps {
     children: React.ReactNode
 }
 
-const LinkItems: Array<LinkItemProps> = [
-  { name: 'Dashboard', icon: BsGrid },
-  { name: 'Accounts', icon: BsCreditCard },
-  { name: 'Reports', icon: PiChartLineUp },
-]
-
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   return (
     <Box
       transition="3s ease"
       bg={'#1F1F1F'}
-      w={{ base: 'full', md: 60 }}
+      w={{ base: '100%', md: 60 }}
       pos="fixed"
       h="full"
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Image src="/images/logo.svg" alt="logo"/>
+        <Image src="/images/logo.svg" alt="logo" />
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
-      {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
-          {link.name}
+      <Grid mt={{base:'0', md:'10'}}>
+        <NavItem mt={2} icon={BsGrid} bg='#414141'>
+          Dashboard
         </NavItem>
-      ))}
+        <NavItem mt={2} icon={BsCreditCard}>
+          Accounts
+        </NavItem>
+        <NavItem mt={2} icon={PiChartLineUp}>
+          Reports
+        </NavItem>
+      </Grid>
     </Box>
   )
 }
