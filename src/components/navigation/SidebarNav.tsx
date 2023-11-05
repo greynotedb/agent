@@ -66,7 +66,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Image src="/images/logo.svg" alt="logo" />
-        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
+        <CloseButton color={'#fff'} display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       <Grid mt={{base:'0', md:'10'}}>
         <NavItem mt={2} icon={BsGrid} bg='#414141'>

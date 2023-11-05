@@ -23,6 +23,7 @@ import {
   Th,
   Tbody,
   Badge,
+  Card,
 } from '@chakra-ui/react'
 import { HiOutlineCalendarDays } from 'react-icons/hi2'
 import StatisticsCard from '@/components/statisticsCard'
@@ -147,13 +148,13 @@ const page: FC<pageProps> = () => {
         </Text>
       </Grid>
 
-      <Flex
-        flexDirection={{ base: 'column', lg:'row' }}
+      <Box
+        display={{base:'col', lg:'flex'}}
         mt={{ base: '16' }}
-        gap={10}>
+        gap={5}>
 
         {/* Styling for first card */}
-        <StatisticsCard bgImage='/images/bluegradientbg.png'>
+        <StatisticsCard bgImage='/images/bluegradientbg.png' >
           <Box>
             <Tabs align='end' variant='unstyled'>
               <TabList>
@@ -233,7 +234,7 @@ const page: FC<pageProps> = () => {
         <StatisticsCard bgImage='/images/greengradientbg.png'>
           <Box w='100%' h='100%'>
             <Tabs align='end' variant='unstyled'>
-
+            
               <TabList>
                 {tabData.map((tab, index) => (
                   <Tab
@@ -264,8 +265,8 @@ const page: FC<pageProps> = () => {
 
               <TabPanels>
                 <TabPanel p={4} textAlign={'start'}>
-                  <Stack
-                    direction={{base:'column', lg:'row'}}
+                  <Box
+                    display={{base:'col', md:'flex'}}
                     pt={4}
                     pb={7}
                     gap={10}
@@ -288,9 +289,9 @@ const page: FC<pageProps> = () => {
                       </Stack>
                     </Box>
 
-                    <Divider display={{ base: 'block', lg: 'block', md: 'block', sm: 'none' }} orientation='vertical' h={'100px'} />
+                    <Divider display={{ base: 'none', md: 'block' }} orientation='vertical' h={'100px'} />
 
-                    <Box textAlign={'center'}>
+                    <Box textAlign={'center'} my={{base:'50px', md:'0px'}}>
                       <Box
                         backgroundImage='/images/badge1.png'
                         minW={'100px'}
@@ -313,7 +314,7 @@ const page: FC<pageProps> = () => {
                       <Text color={'#fff'} fontSize={{ base: '20' }}>You&apos;re on a roll 🔥</Text>
                     </Box>
 
-                    <Divider display={{ base: 'block', lg: 'block', md: 'block', sm: 'none' }} orientation='vertical' h={'100px'} />
+                    <Divider display={{ base: 'none', md: 'block'}} orientation='vertical' h={'100px'} />
 
                     <Box textAlign={'center'}>
                       <Text
@@ -327,7 +328,7 @@ const page: FC<pageProps> = () => {
                       <Text color={'#B4B4B4'}>Longest Referrals Streak</Text>
                     </Box>
 
-                  </Stack>
+                  </Box>
                 </TabPanel>
 
                 <TabPanel p={4}>
@@ -341,17 +342,17 @@ const page: FC<pageProps> = () => {
             </Tabs>
           </Box>
         </StatisticsCard>
-      </Flex>
+      </Box>
 
       {/* Container for referrals and leaderboard */}
-      <Stack
+      <Box
         mt={{ base: '6' }}
-        direction={{ base: 'column', lg:'row'}}
-        gap={'10'}
-        width={'100%'}
+        display={{ base: 'column', lg:'flex'}}
+        gap={5}
+        justifyContent={'space-between'}
       >
         {/* Table component */}
-        <Box width={'100%'} bg={'#313131'} borderRadius={'md'} padding={'3rem 1.5rem'}>
+        <Card bg={'#313131'} borderRadius={'md'} padding={{base:"2rem 1rem", md:'3rem 1.5rem'}} w={{base:'full', lg:'170%'}}>
           <Box>
             <Text color={'#B4B4B4'} fontSize={{ base: '16px' }}>Referrals</Text>
             <Text color={'#F1F1F1'} fontSize={{ base: '30px' }} fontWeight={'bold'}>Recent Signups</Text>
@@ -398,24 +399,24 @@ const page: FC<pageProps> = () => {
             </TableContainer>
           </Box>
 
-        </Box>
+        </Card>
 
         {/* Leaderboard Component */}
-        <Box
+        <Card
           bg={'#313131'}
           borderRadius={'md'}
           py={'3rem'}
-          pl={'1.5rem'}
-          pr={'3rem'}
-        // width='100%'
+          px={'2rem'}
+          width={'full'}
+          mt={{base:'1rem', lg:'0px'}}
         >
 
           <Box>
-            <Text color={'#B4B4B4'} fontSize={{ base: '16px' }}>Leaderboard</Text>
-            <Text color={'#F1F1F1'} fontSize={{ base: '30px' }} fontWeight={'bold'}>Top Agents</Text>
+            <Text color={'#B4B4B4'} fontSize={{ md: '16px' }}>Leaderboard</Text>
+            <Text color={'#F1F1F1'} fontSize={{ md: '30px' }} fontWeight={'bold'}>Top Agents</Text>
           </Box>
 
-          <Grid mt={5}>
+          <Box mt={5}>
             {
               leaderboardData.map((data, index) => {
                 return (
@@ -423,10 +424,10 @@ const page: FC<pageProps> = () => {
                 )
               })
             }
-          </Grid>
+          </Box>
 
-        </Box>
-      </Stack>
+        </Card>
+      </Box>
     </Box>
   )
 }

@@ -1,6 +1,5 @@
 import { FC } from 'react'
 import {
-    Card,
     Box,
 } from '@chakra-ui/react'
 
@@ -21,6 +20,7 @@ const StatisticsCard: FC<StatisticsCardProps> = ({children, bgImage}) => {
     bgRepeat={'no-repeat'}
     bgColor={'#0C0C0C'}
     padding={'1rem 1rem'}
+    mb={{base:'1rem', lg:'0px'}}
     >
     {children}
     </Box>
