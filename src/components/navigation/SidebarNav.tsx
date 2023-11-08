@@ -1,5 +1,5 @@
 'use client'
-
+import {usePathname} from 'next/navigation'
 import {FC} from 'react'
 import {
   IconButton,
@@ -34,8 +34,8 @@ import {
 } from 'react-icons/pi'
 import {
   BsGrid,
-  BsCreditCard,
 } from 'react-icons/bs'
+import {GoPerson} from 'react-icons/go'
 import { IconType } from 'react-icons'
 
 interface NavItemProps extends FlexProps {
@@ -64,7 +64,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       pos="fixed"
       h="full"
       {...rest}>
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+      <Flex h={'20'} alignItems="center" mx="8" justifyContent="space-between">
         <Image src="/images/logo.svg" alt="logo" />
         <CloseButton color={'#fff'} display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
@@ -72,11 +72,11 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <NavItem mt={2} icon={BsGrid} bg='#414141'>
           Dashboard
         </NavItem>
-        <NavItem mt={2} icon={BsCreditCard}>
-          Accounts
-        </NavItem>
         <NavItem mt={2} icon={PiChartLineUp}>
-          Reports
+          Analytics
+        </NavItem>
+        <NavItem mt={2} icon={GoPerson}>
+          Clients
         </NavItem>
       </Grid>
     </Box>
@@ -92,11 +92,12 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
       _focus={{ boxShadow: 'none' }}>
       <Flex
         align="center"
-        fontSize='20'
+        fontSize='lg'
         color="#FFF"
-        p="4"
+        py={'1'}
+        px={'2'}
         mx="4"
-        borderRadius="lg"
+        rounded={'sm'}
         role="group"
         cursor="pointer"
         _hover={{
@@ -148,7 +149,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         >
         <Text 
         color={'#fff'}
-        fontSize={32}
+        fontSize={24}
         fontWeight={500}>
         Welcome back, Kemi
         </Text>

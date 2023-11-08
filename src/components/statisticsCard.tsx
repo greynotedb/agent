@@ -15,8 +15,8 @@ const StatisticsCard: FC<StatisticsCardProps> = ({children, bgImage}) => {
     borderRadius={10}
     backgroundSize={'cover'}
     backgroundPosition={'center'}
-    width={'100%'}
-    height={'100%'}
+    width={'full'}
+    height={'full'}
     bgRepeat={'no-repeat'}
     bgColor={'#0C0C0C'}
     padding={'1rem 1rem'}

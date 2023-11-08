@@ -1,11 +1,11 @@
-'use client'
+"use client"
 import { FC } from 'react'
 import type { Metadata } from 'next'
 import { ChakraProvider } from '@chakra-ui/react'
 import customTheme from '@/theme/customTheme'
 import SidebarNav from '@/components/navigation/SidebarNav'
 
-export const metadata: Metadata = {
+const metadata: Metadata = {
   title: 'Greynote-Agent',
   description: 'Greynote Agent Dashboard',
 }
