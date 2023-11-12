@@ -3,7 +3,6 @@ import { FC } from 'react'
 import type { Metadata } from 'next'
 import { ChakraProvider } from '@chakra-ui/react'
 import customTheme from '@/theme/customTheme'
-import SidebarNav from '@/components/navigation/SidebarNav'
 
 const metadata: Metadata = {
   title: 'Greynote-Agent',
@@ -19,9 +18,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     <html lang="en">
       <body>
         <ChakraProvider theme={ customTheme }>
-          <SidebarNav>
             {children}
-          </SidebarNav>
         </ChakraProvider>
         </body>
     </html>
