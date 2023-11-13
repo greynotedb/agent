@@ -1,5 +1,5 @@
 "use client";
-import { FC, useState, useEffect } from "react";
+import { FC, useState } from "react";
 import {
   Box,
   Text,
@@ -18,37 +18,40 @@ import {
   Avatar,
   Select,
   Checkbox,
-  PinInput,
-  PinInputField,
-  HStack,
+  useToast,
 } from "@chakra-ui/react";
 import { Formik, Form, Field } from "formik";
 import ImageUpload from "@/components/shared/ImageUpload";
+import * as Yup from 'yup'
 
 interface SignupProps {}
 
 const Signup: FC<SignupProps> = ({}) => {
-  const [tabIndex, setTabIndex] = useState(0)
+  const [tabIndex, setTabIndex] = useState(0);
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const [profileUrl, setProfileUrl] = useState("")
+  const [profileUrl, setProfileUrl] = useState("");
+  const toast = useToast();
 
   const handleTabsChange = () => {
-    setTabIndex(tabIndex+1)
-  }
+    setTabIndex(tabIndex + 1);
+  };
 
   const handleProfileUrlChange = (url: any) => {
-    setProfileUrl(url)
-  }
+    setProfileUrl(url);
+  };
 
-  function validateName(value: any) {
-    let error;
-    if (!value) {
-      error = "Name is required";
-    } else if (value.toLowerCase() !== "naruto") {
-      error = "Jeez! You're not a fan 😱";
-    }
-    return error;
-  }
+  // Yup schema to validate the form
+  const schema = Yup.object().shape({
+    firstName: Yup.string().required("First name is required"),
+    lastName: Yup.string().required("Last name is required"),
+    middleName: Yup.string().required("Middle name is required"),
+    phoneNumber: Yup.number().required("Phone number is required"),
+    email: Yup.string()
+      .required("Email is required")
+      .email("Invalid Email Format"),
+    password: Yup.string().required().min(7),
+  });
+
   return (
     <Flex justifyContent={"center"} minH={"100vh"} alignItems={"center"}>
       <Box
@@ -80,12 +83,11 @@ const Signup: FC<SignupProps> = ({}) => {
             color={"#EAEAEA"}
             mt={tabIndex > 1 ? "2rem" : "0"}
             fontSize={{ base: "lg", md: "2xl" }}
-            fontWeight={  "600"}
+            fontWeight={"600"}
           >
             {tabIndex === 0
               ? "Become a Greynote Agent"
-              : "Profile Verification"
-              }
+              : "Profile Verification"}
           </Text>
         </Box>
 
@@ -102,19 +104,25 @@ const Signup: FC<SignupProps> = ({}) => {
             docConsent: false,
           }}
           onSubmit={(values, actions) => {
-            // setTimeout(() => {
-            //   alert(JSON.stringify(values, null, 2));
-            //   actions.setSubmitting(false);
-            // }, 1000);
+            toast({
+              title: "Account created",
+              description:
+                "Your account was created successfully, you will be redirected soon.",
+              position: "bottom",
+              isClosable: true,
+              status: "success",
+            });
+            actions.setSubmitting(false);
           }}
+          validationSchema={schema}
         >
           {(props) => (
-            <Tabs
-              index={tabIndex}
-              onChange={handleTabsChange}
-              variant={"unstyled"}
-            >
-              <Form>
+            <Form>
+              <Tabs
+                index={tabIndex}
+                variant="unstyled"
+                onChange={handleTabsChange}
+              >
                 <TabPanels>
                   <TabPanel p={0}>
                     <Flex
@@ -125,7 +133,9 @@ const Signup: FC<SignupProps> = ({}) => {
                       <Field name="firstName">
                         {({ field, form }: any) => (
                           <FormControl
-                            isInvalid={form.errors.name && form.touched.name}
+                            isInvalid={
+                              form.errors.firstName && form.touched.firstName
+                            }
                           >
                             <Box w={"full"}>
                               <FormLabel color={"#999999"} fontSize={"xs"}>
@@ -133,6 +143,7 @@ const Signup: FC<SignupProps> = ({}) => {
                               </FormLabel>
                               <Input
                                 {...field}
+                                autoFocus={true}
                                 border={"1px solid #747474"}
                                 size={{ base: "sm", md: "lg" }}
                                 h={"2.3rem"}
@@ -141,7 +152,7 @@ const Signup: FC<SignupProps> = ({}) => {
                                 fontSize={"sm"}
                               />
                               <FormErrorMessage>
-                                {form.errors.name}
+                                {form.errors.firstName}
                               </FormErrorMessage>
                             </Box>
                           </FormControl>
@@ -151,7 +162,9 @@ const Signup: FC<SignupProps> = ({}) => {
                       <Field name="lastName">
                         {({ field, form }: any) => (
                           <FormControl
-                            isInvalid={form.errors.name && form.touched.name}
+                            isInvalid={
+                              form.errors.lastName && form.touched.lastName
+                            }
                           >
                             <Box w={"full"}>
                               <FormLabel color={"#999999"} fontSize={"xs"}>
@@ -167,7 +180,7 @@ const Signup: FC<SignupProps> = ({}) => {
                                 fontSize={"sm"}
                               />
                               <FormErrorMessage>
-                                {form.errors.name}
+                                {form.errors.lastName}
                               </FormErrorMessage>
                             </Box>
                           </FormControl>
@@ -178,7 +191,9 @@ const Signup: FC<SignupProps> = ({}) => {
                     <Field name="middleName">
                       {({ field, form }: any) => (
                         <FormControl
-                          isInvalid={form.errors.name && form.touched.name}
+                          isInvalid={
+                            form.errors.middleName && form.touched.middleName
+                          }
                         >
                           <Box w={"full"} mb={"1.2rem"}>
                             <FormLabel color={"#999999"} fontSize={"xs"}>
@@ -194,7 +209,7 @@ const Signup: FC<SignupProps> = ({}) => {
                               fontSize={"sm"}
                             />
                             <FormErrorMessage>
-                              {form.errors.name}
+                              {form.errors.middleName}
                             </FormErrorMessage>
                           </Box>
                         </FormControl>
@@ -209,7 +224,7 @@ const Signup: FC<SignupProps> = ({}) => {
                       <Field name="email">
                         {({ field, form }: any) => (
                           <FormControl
-                            isInvalid={form.errors.name && form.touched.name}
+                            isInvalid={form.errors.email && form.touched.email}
                           >
                             <Box w={"full"}>
                               <FormLabel color={"#999999"} fontSize={"xs"}>
@@ -226,7 +241,7 @@ const Signup: FC<SignupProps> = ({}) => {
                                 fontSize={"sm"}
                               />
                               <FormErrorMessage>
-                                {form.errors.name}
+                                {form.errors.email}
                               </FormErrorMessage>
                             </Box>
                           </FormControl>
@@ -236,7 +251,10 @@ const Signup: FC<SignupProps> = ({}) => {
                       <Field name="phoneNumber">
                         {({ field, form }: any) => (
                           <FormControl
-                            isInvalid={form.errors.name && form.touched.name}
+                            isInvalid={
+                              form.errors.phoneNumber &&
+                              form.touched.phoneNumber
+                            }
                           >
                             <Box w={"full"}>
                               <FormLabel color={"#999999"} fontSize={"xs"}>
@@ -253,7 +271,7 @@ const Signup: FC<SignupProps> = ({}) => {
                                 fontSize={"sm"}
                               />
                               <FormErrorMessage>
-                                {form.errors.name}
+                                {form.errors.phoneNumber}
                               </FormErrorMessage>
                             </Box>
                           </FormControl>
@@ -264,7 +282,9 @@ const Signup: FC<SignupProps> = ({}) => {
                     <Field name="password">
                       {({ field, form }: any) => (
                         <FormControl
-                          isInvalid={form.errors.name && form.touched.name}
+                          isInvalid={
+                            form.errors.password && form.touched.password
+                          }
                         >
                           <Box w={"full"} mb={"1.2rem"}>
                             <FormLabel color={"#999999"} fontSize={"xs"}>
@@ -281,7 +301,7 @@ const Signup: FC<SignupProps> = ({}) => {
                               fontSize={"sm"}
                             />
                             <FormErrorMessage>
-                              {form.errors.name}
+                              {form.errors.password}
                             </FormErrorMessage>
                           </Box>
                         </FormControl>
@@ -293,11 +313,13 @@ const Signup: FC<SignupProps> = ({}) => {
                         mt={4}
                         backgroundColor={"#007C7B"}
                         color={"#fff"}
-                        isLoading={props.isSubmitting}
-                        type="submit"
                         fontWeight={"400"}
                         w={"17rem"}
-                        onClick={() => handleTabsChange()}
+                        onClick={() => {
+                          if (props.isValid) {
+                            handleTabsChange();
+                          }
+                        }}
                         _hover={{ backgroundColor: "#099C9B" }}
                       >
                         Continue
@@ -309,6 +331,7 @@ const Signup: FC<SignupProps> = ({}) => {
                       color={"#fff"}
                       fontWeight={"400"}
                       fontSize={"md"}
+                      mt={"0.5rem"}
                     >
                       By continuing, you agree to our Terms of Use
                     </Text>
@@ -368,7 +391,7 @@ const Signup: FC<SignupProps> = ({}) => {
                       <Field name="docType">
                         {({ field, form }: any) => (
                           <FormControl
-                            isInvalid={form.errors.name && form.touched.name}
+                          // isInvalid={form.errors.name && form.touched.name}
                           >
                             <Box w={"full"}>
                               <FormLabel color={"#999999"} fontSize={"xs"}>
@@ -399,9 +422,9 @@ const Signup: FC<SignupProps> = ({}) => {
                                   International passport
                                 </option>
                               </Select>
-                              <FormErrorMessage>
+                              {/* <FormErrorMessage>
                                 {form.errors.name}
-                              </FormErrorMessage>
+                              </FormErrorMessage> */}
                             </Box>
                           </FormControl>
                         )}
@@ -410,7 +433,7 @@ const Signup: FC<SignupProps> = ({}) => {
                       <Field name="file">
                         {({ field, form }: any) => (
                           <FormControl
-                            isInvalid={form.errors.file && form.touched.file}
+                          // isInvalid={form.errors.file && form.touched.file}
                           >
                             <Box w={"full"} mb={"1.2rem"}>
                               <FormLabel color={"#999999"} fontSize={"xs"}>
@@ -439,9 +462,9 @@ const Signup: FC<SignupProps> = ({}) => {
                                 />
                               </label>
                             </Box>
-                            <FormErrorMessage>
+                            {/* <FormErrorMessage>
                               {form.errors.file}
-                            </FormErrorMessage>
+                            </FormErrorMessage> */}
                           </FormControl>
                         )}
                       </Field>
@@ -450,16 +473,16 @@ const Signup: FC<SignupProps> = ({}) => {
                     <Field name="docConsent">
                       {({ field, form }: any) => (
                         <FormControl
-                          isInvalid={form.errors.file && form.touched.file}
+                        // isInvalid={form.errors.file && form.touched.file}
                         >
                           <Box w={"full"} mb={"1.2rem"} textAlign={"center"}>
                             <Checkbox {...field} color={"#fff"} fontSize={"sm"}>
                               I agree that the documents uploaded belong to me
                             </Checkbox>
                           </Box>
-                          <FormErrorMessage>
+                          {/* <FormErrorMessage>
                             {form.errors.file}
-                          </FormErrorMessage>
+                          </FormErrorMessage> */}
                         </FormControl>
                       )}
                     </Field>
@@ -473,6 +496,8 @@ const Signup: FC<SignupProps> = ({}) => {
                         fontWeight={"400"}
                         w={"17rem"}
                         _hover={{ backgroundColor: "#099C9B" }}
+                        isLoading={props.isSubmitting}
+                        isDisabled={!props.values.docConsent ? true : false}
                       >
                         Continue
                       </Button>
@@ -498,8 +523,8 @@ const Signup: FC<SignupProps> = ({}) => {
                     </Flex>
                   </TabPanel>
                 </TabPanels>
-              </Form>
-            </Tabs>
+              </Tabs>
+            </Form>
           )}
         </Formik>
       </Box>
