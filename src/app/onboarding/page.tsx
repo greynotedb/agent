@@ -16,7 +16,7 @@ interface pageProps {}
 
 const page: FC<pageProps> = ({}) => {
     const [otp, setOtp] = useState(["", "", "", "", "", ""])
-    const [isVerified, setIsVerified] = useState(false)
+    const [isVerified, setIsVerified] = useState(true)
     const [referralCode, setRefferalCode] = useState("A5VW68");
 
     const handleOtpChange = (value: string, index: number) => {
@@ -86,18 +86,6 @@ const page: FC<pageProps> = ({}) => {
                   Continue
                 </Button>
               </Flex>
-              <Flex justifyContent={"center"} my={"1.5rem"}>
-                <Button
-                  mt={4}
-                  backgroundColor={"#007C7B"}
-                  color={"#fff"}
-                  fontWeight={"400"}
-                  w={"17rem"}
-                  _hover={{ backgroundColor: "#099C9B" }}
-                >
-                  Continue
-                </Button>
-              </Flex>
             </>
           ) : (
             <>
@@ -136,7 +124,7 @@ const page: FC<pageProps> = ({}) => {
                   </Text>
                   <Text
                     color="#fff"
-                    fontSize={"3rem"}
+                    fontSize={"2rem"}
                     letterSpacing={"1rem"}
                     mt={"2rem"}
                   >

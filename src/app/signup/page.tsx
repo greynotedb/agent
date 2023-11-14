@@ -320,6 +320,7 @@ const Signup: FC<SignupProps> = ({}) => {
                             handleTabsChange();
                           }
                         }}
+                        type='submit'
                         _hover={{ backgroundColor: "#099C9B" }}
                       >
                         Continue
