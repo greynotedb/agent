@@ -32,7 +32,7 @@ import StatisticsCard from "@/components/statisticsCard";
 import { format } from "date-fns";
 import LeaderBoardItem from "@/components/leaderboardItem";
 
-interface pageProps {}
+interface DahboardPageProps {}
 
 const tabData = [
   {
@@ -135,7 +135,7 @@ const leaderboardData = [
   },
 ];
 
-const page: FC<pageProps> = () => {
+const DahboardPage: FC<DahboardPageProps> = () => {
   const date = new Date();
   const formattedDate = format(date, "EEEE, do MMMM yyyy");
 
@@ -163,21 +163,21 @@ const page: FC<pageProps> = () => {
                     key={index}
                     color={"#D8D8D8"}
                     borderRadius="4"
-                    padding={{
-                      base: "5, 5",
-                      md: "0.7rem 2rem",
-                    }}
                     mx="2"
-                    fontSize={'xs'}
+                    fontSize={"xs"}
                     _selected={{
                       bg: "#4444447D",
                       color: "#D8D8D8",
                     }}
                   >
                     <Box pr="1">
-                      <Icon as={HiOutlineCalendarDays} color={'#8D8D8D'} />
+                      <Icon
+                        as={HiOutlineCalendarDays}
+                        color={"#8D8D8D"}
+                        boxSize={"6"}
+                      />
                     </Box>
-                    {tab.label}
+                    <Text fontSize={{ base: "sm", lg: "md" }}>{tab.label}</Text>
                   </Tab>
                 ))}
               </TabList>
@@ -235,23 +235,21 @@ const page: FC<pageProps> = () => {
                     key={index}
                     color={"#D8D8D8"}
                     borderRadius="4"
-                    padding={{
-                      base: "5, 5",
-                      md: "0.7rem 2rem",
-                      sm: "0.3rem 1rem",
-                    }}
                     mx="2"
-                    fontSize={'xs'}
+                    fontSize={"xs"}
                     _selected={{
                       bg: "#4444447D",
                       color: "#D8D8D8",
                     }}
                   >
                     <Box pr="1">
-                      <Icon as={HiOutlineCalendarDays} color={'#8D8D8D'} />
+                      <Icon
+                        as={HiOutlineCalendarDays}
+                        color={"#8D8D8D"}
+                        boxSize={"6"}
+                      />
                     </Box>
-
-                    {tab.label}
+                    <Text fontSize={{ base: "sm", lg: "md" }}>{tab.label}</Text>
                   </Tab>
                 ))}
               </TabList>
@@ -469,4 +467,4 @@ const page: FC<pageProps> = () => {
   );
 };
 
-export default page;
+export default DahboardPage;
