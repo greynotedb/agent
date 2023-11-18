@@ -10,7 +10,7 @@ import {
   HStack,
   VStack,
   Icon,
-  useColorModeValue,
+  Button,
   Text,
   Drawer,
   DrawerContent,
@@ -30,7 +30,7 @@ import { BsGrid } from "react-icons/bs";
 import { GoPerson } from "react-icons/go";
 import { PiChartLineUp } from "react-icons/pi";
 import { IconType } from "react-icons";
-import { profile } from "console";
+import { GoQuestion } from "react-icons/go";
 
 interface LinkItemProps {
   name: string;
@@ -70,6 +70,22 @@ const LinkItems: Array<LinkItemProps> = [
   { name: "Analytics", icon: PiChartLineUp, url: "/analytics" },
   { name: "Clients", icon: GoPerson, url: "/clients" },
 ];
+
+const LegendBadge = () => {
+  return (
+    <Flex
+      justifyContent={'center'}
+      alignItems={'center'}
+      px={'0.8rem'}
+      py={'0.1rem'}
+      border={"1px solid #9FA300"}
+      rounded={"4px"}
+      backgroundColor={"#FEFFCF"}
+    >
+      <Text color={"#9FA300"} fontSize={'xs'} fontWeight={'lighter'}>Legend</Text>
+    </Flex>
+  );
+};
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   return (
@@ -211,13 +227,23 @@ const MobileNav = ({ onOpen, profileData, ...rest }: MobileProps) => {
                 </Box>
               </HStack>
             </MenuButton>
-            <MenuList backgroundColor={"#fff"} p={"0.5rem"}>
+            <MenuList
+              backgroundColor={"#fff"}
+              w={"280px"}
+              p={"0.5rem"}
+              rounded={"xl"}
+            >
               <MenuItem
                 justifyContent={"center"}
                 border={"1px solid #E2E2E2"}
                 rounded={"lg"}
               >
-                <Flex justifyContent={"center"} alignItems={"center"}>
+                <Flex
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                  flexDir={"column"}
+                  gap={10}
+                >
                   <Box
                     display={"flex"}
                     flexDir={"column"}
@@ -226,20 +252,71 @@ const MobileNav = ({ onOpen, profileData, ...rest }: MobileProps) => {
                   >
                     <Avatar
                       src="https://janeylous.com/wp-content/uploads/2023/01/Dayna-Jackson.jpg"
-                      size={"md"}
+                      size={"lg"}
                     />
                     <Text
-                      fontSize={"xs"}
+                      fontSize={"sm"}
                       fontWeight={"600"}
                     >{`${profileData.firstName} ${profileData.lastName}`}</Text>
-                    <Text color={"#A7A7A7"} fontSize={"xs"} fontWeight={"300"}>
+                    <Text color={"#A7A7A7"} fontSize={"sm"} fontWeight={"300"}>
                       {profileData.email}
                     </Text>
                   </Box>
+                  <Flex gap={3} justifyContent={"center"} alignItems={"center"}>
+                    <Text color={"#A7A7A7"} fontSize={"sm"} fontWeight={"400"}>
+                      {profileData.referralNumber} Refferals
+                    </Text>
+                    <LegendBadge />
+                  </Flex>
+                </Flex>
+              </MenuItem>
+              <MenuItem justifyContent={"center"} _hover={{backgroundColor:"#fff"}} mt={'0.5rem'}>
+                <Flex
+                  flexDir={"column"}
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                >
+                  <Text color={"#A7A7A7"} fontSize={"xs"} fontWeight={"100"}>
+                    Created at: {profileData.dateOfCreation}
+                  </Text>
+                  <Text
+                    color={"#007C7B"}
+                    fontSize={"2.5rem"}
+                    letterSpacing={"3px"}
+                    mt={"0.5rem"}
+                  >
+                    {profileData.referralCode}
+                  </Text>
+                  <Text fontSize={"xs"} fontWeight={"bold"}>
+                    My Refferal Code
+                  </Text>
                 </Flex>
               </MenuItem>
               <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
+              <MenuItem>
+                <Flex alignItems={"center"} gap={3}>
+                  <Icon as={GoQuestion} color={"#747474"} />
+                  <Text color={"#747474"} fontSize={"sm"}>
+                    Get Help
+                  </Text>
+                </Flex>
+              </MenuItem>
+              <Flex justifyContent={'center'}>
+              <Button
+                backgroundColor={"#FFC5C5"}
+                rounded={"md"}
+                py={"0.3rem"}
+                w={"90%"}
+                mt={"10px"}
+                color={"#E03F3F"}
+                _hover={{ backgroundColor: "#712626", color: "#fff" }}
+                mb={'1rem'}
+              >
+                <Text fontSize={"sm"} fontWeight={"500"}>
+                  Logout
+                </Text>
+              </Button>
+              </Flex>
             </MenuList>
           </Menu>
         </Flex>
