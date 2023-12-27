@@ -4,7 +4,6 @@ import { FC } from "react";
 import {
   Box,
   Text,
-  Grid,
   TabList,
   Tabs,
   Tab,
@@ -29,7 +28,6 @@ import {
 } from "@chakra-ui/react";
 import { HiOutlineCalendarDays } from "react-icons/hi2";
 import StatisticsCard from "@/components/statisticsCard";
-import { format } from "date-fns";
 import LeaderBoardItem from "@/components/leaderboardItem";
 
 interface DahboardPageProps {}
@@ -93,6 +91,14 @@ const tableData = {
       status: "Failed",
       package: "Yearly",
     },
+    {
+      id: "132258",
+      firstName: "Michael",
+      lastName: "Stones",
+      schoolName: "Gold compass school",
+      status: "Owing",
+      package: "Yearly",
+    },
   ],
 };
 
@@ -136,22 +142,9 @@ const leaderboardData = [
 ];
 
 const DahboardPage: FC<DahboardPageProps> = () => {
-  const date = new Date();
-  const formattedDate = format(date, "EEEE, do MMMM yyyy");
 
   return (
     <Box mx={5}>
-      <Grid maxW={"520px"}>
-        <Text color={"#fff"} fontSize={24} fontWeight={600}>
-          {`Today is ${formattedDate}.`}
-        </Text>
-
-        <Text color={"#fff"} mt={{ base: "6" }}>
-          Momentum Builder: Keep the referrals coming to keep the momentum
-          growing!
-        </Text>
-      </Grid>
-
       <Box display={{ base: "col", lg: "flex" }} mt={{ base: "16" }} gap={5}>
         {/* Styling for first card */}
         <StatisticsCard bgImage="/images/bluegradientbg.png">
@@ -162,7 +155,7 @@ const DahboardPage: FC<DahboardPageProps> = () => {
                   <Tab
                     key={index}
                     color={"#D8D8D8"}
-                    borderRadius="4"
+                    rounded={'xl'}
                     mx="2"
                     fontSize={"xs"}
                     _selected={{
@@ -234,7 +227,7 @@ const DahboardPage: FC<DahboardPageProps> = () => {
                   <Tab
                     key={index}
                     color={"#D8D8D8"}
-                    borderRadius="4"
+                    rounded={'xl'}
                     mx="2"
                     fontSize={"xs"}
                     _selected={{
@@ -354,7 +347,7 @@ const DahboardPage: FC<DahboardPageProps> = () => {
         {/* Table component */}
         <Card
           bg={"#313131"}
-          borderRadius={"md"}
+          rounded={'xl'}
           padding={{ base: "2rem 1rem", md: "3rem 1.5rem" }}
           w={{ base: "full", lg: "170%" }}
         >
@@ -409,13 +402,20 @@ const DahboardPage: FC<DahboardPageProps> = () => {
                         </Td>
                         <Td key={index}>
                           <Badge
+                            textTransform={"capitalize"}
                             variant="outline"
-                            fontSize={{ base: "12" }}
+                            fontSize={{ base: "16" }}
+                            fontWeight={'400'}
+                            px={'0.5rem'}
+                            py={'0.2rem'}
+                            rounded={'md'}
                             colorScheme={
                               data.status == "Paid"
                                 ? "green"
                                 : data.status == "Processing"
                                 ? "yellow"
+                                : data.status == "Owing"
+                                ? "red"
                                 : "gray"
                             }
                           >
@@ -435,15 +435,16 @@ const DahboardPage: FC<DahboardPageProps> = () => {
         </Card>
 
         {/* Leaderboard Component */}
-        <Card
+        <Flex
           bg={"#313131"}
-          borderRadius={"md"}
-          py={"3rem"}
-          px={"2rem"}
-          width={"full"}
+          rounded={'xl'}
+          py={"2rem"}
+          px={"1.5rem"}
+          flex={'1'}
           mt={{ base: "1rem", lg: "0px" }}
+          flexDir={'column'}
         >
-          <Box>
+          <Box mb={'2rem'}>
             <Text color={"#B4B4B4"} fontSize={{ md: "16px" }}>
               Leaderboard
             </Text>
@@ -456,12 +457,12 @@ const DahboardPage: FC<DahboardPageProps> = () => {
             </Text>
           </Box>
 
-          <Box mt={2}>
+          <Box mt={2} display={'flex'} flexDir={'column'} gap={6}>
             {leaderboardData.map((data, index) => {
               return <LeaderBoardItem key={index} leaderboardData={data} />;
             })}
           </Box>
-        </Card>
+        </Flex>
       </Box>
     </Box>
   );

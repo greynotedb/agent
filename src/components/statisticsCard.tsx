@@ -12,7 +12,7 @@ const StatisticsCard: FC<StatisticsCardProps> = ({children, bgImage}) => {
   return (
     <Box
     backgroundImage={bgImage}
-    borderRadius={10}
+    rounded={'xl'}
     backgroundSize={'cover'}
     backgroundPosition={'center'}
     width={'full'}

@@ -16,7 +16,7 @@ interface pageProps {}
 
 const page: FC<pageProps> = ({}) => {
     const [otp, setOtp] = useState(["", "", "", "", "", ""])
-    const [isVerified, setIsVerified] = useState(true)
+    const [isVerified, setIsVerified] = useState(false)
     const [referralCode, setRefferalCode] = useState("A5VW68");
 
     const handleOtpChange = (value: string, index: number) => {

@@ -1,5 +1,5 @@
 "use client";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { FC, useState } from "react";
 import {
   IconButton,
@@ -31,6 +31,7 @@ import { GoPerson } from "react-icons/go";
 import { PiChartLineUp } from "react-icons/pi";
 import { IconType } from "react-icons";
 import { GoQuestion } from "react-icons/go";
+import { format } from "date-fns";
 
 interface LinkItemProps {
   name: string;
@@ -187,8 +188,8 @@ const MobileNav = ({ onOpen, profileData, ...rest }: MobileProps) => {
         icon={<FiMenu />}
       />
 
-      <Box ml={5} mr={{ base: "auto" }} hideBelow={"lg"}>
-        <Text color={"#fff"} fontSize={24} fontWeight={500}>
+      <Box mr={{ base: "auto" }} hideBelow={"lg"}>
+        <Text color={"#EAEAEA"} fontSize={24} fontWeight={500}>
           Welcome back, {profileData.firstName}
         </Text>
       </Box>
@@ -270,7 +271,11 @@ const MobileNav = ({ onOpen, profileData, ...rest }: MobileProps) => {
                   </Flex>
                 </Flex>
               </MenuItem>
-              <MenuItem justifyContent={"center"} _hover={{backgroundColor:"#fff"}} mt={'0.5rem'}>
+              <MenuItem
+                justifyContent={"center"}
+                _hover={{ backgroundColor: "#fff" }}
+                mt={"0.5rem"}
+              >
                 <Flex
                   flexDir={"column"}
                   justifyContent={"center"}
@@ -301,21 +306,21 @@ const MobileNav = ({ onOpen, profileData, ...rest }: MobileProps) => {
                   </Text>
                 </Flex>
               </MenuItem>
-              <Flex justifyContent={'center'}>
-              <Button
-                backgroundColor={"#FFC5C5"}
-                rounded={"md"}
-                py={"0.3rem"}
-                w={"90%"}
-                mt={"10px"}
-                color={"#E03F3F"}
-                _hover={{ backgroundColor: "#712626", color: "#fff" }}
-                mb={'1rem'}
-              >
-                <Text fontSize={"sm"} fontWeight={"500"}>
-                  Logout
-                </Text>
-              </Button>
+              <Flex justifyContent={"center"}>
+                <Button
+                  backgroundColor={"#FFC5C5"}
+                  rounded={"md"}
+                  py={"0.3rem"}
+                  w={"90%"}
+                  mt={"10px"}
+                  color={"#E03F3F"}
+                  _hover={{ backgroundColor: "#712626", color: "#fff" }}
+                  mb={"1rem"}
+                >
+                  <Text fontSize={"sm"} fontWeight={"500"}>
+                    Logout
+                  </Text>
+                </Button>
               </Flex>
             </MenuList>
           </Menu>
@@ -326,6 +331,9 @@ const MobileNav = ({ onOpen, profileData, ...rest }: MobileProps) => {
 };
 
 const SidebarNav: FC<SidebarNavProps> = ({ children }) => {
+  const date = new Date();
+  const formattedDate = format(date, "EEEE, do MMMM yyyy");
+  
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [profile, setProfile] = useState({
     firstName: "Kemi",
@@ -357,8 +365,18 @@ const SidebarNav: FC<SidebarNavProps> = ({ children }) => {
         </DrawerContent>
       </Drawer>
       {/* mobilenav */}
-      <MobileNav onOpen={onOpen} profileData={profile}/>
-      <Box ml={{ base: 0, md: 60 }} p="4">
+      <MobileNav onOpen={onOpen} profileData={profile} />
+      <Box ml={{ base: 0, md: 60 }} py="4">
+        <Grid maxW={"520px"} px={'4'}>
+          <Text color={"#EAEAEA"} fontSize={24} fontWeight={600}>
+            {`Today is ${formattedDate}.`}
+          </Text>
+
+          <Text color={"#EAEAEA"} mt={{ base: "4" }} fontSize={'sm'}>
+            Momentum Builder: Keep the referrals coming to keep the momentum
+            growing!
+          </Text>
+        </Grid>
         {/* Content */}
         {children}
       </Box>
