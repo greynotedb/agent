@@ -33,10 +33,10 @@ import { FaSquare } from "react-icons/fa6";
 interface AnalyticsPageProps {}
 
 const PieChartData = [
-  { name: "Group A", value: 400, fill: "#0088FE" },
-  { name: "Group B", value: 300, fill: "#00C49F" },
-  { name: "Group C", value: 300, fill: "#FFBB28" },
-  { name: "Group D", value: 200, fill: "#FF8042" },
+  { name: "Group A", value: 400, fill: "#ffc148" },
+  { name: "Group B", value: 300, fill: "#18a0fb" },
+  { name: "Group C", value: 300, fill: "#35e5aa" },
+  { name: "Group D", value: 200, fill: "#ff83a8" },
 ];
 
 const BarchartData = [
@@ -379,8 +379,8 @@ const AnalyticsPage: FC<AnalyticsPageProps> = () => {
             <Box
               backgroundColor={"#1A1C24"}
               pb={"1.1rem"}
-              pt={'0.7rem'}
-              px={'0.7rem'}
+              pt={"0.7rem"}
+              px={"0.7rem"}
               rounded={"md"}
               w={"full"}
               height={"full"}
@@ -404,12 +404,12 @@ const AnalyticsPage: FC<AnalyticsPageProps> = () => {
                       cy="50%"
                       innerRadius={80}
                       outerRadius={100}
-                      fill="#8884d8"
-                      paddingAngle={0}
-                      dataKey="value"
+                      fill="transparent"
+                      paddingAngle={2}
+                      dataKey="value"            
                     >
                       {PieChartData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.fill} />
+                        <Cell key={`cell-${index}`} fill={entry.fill}/>
                       ))}
                     </Pie>
                   </PieChart>
