@@ -406,18 +406,28 @@ const AnalyticsPage: FC<AnalyticsPageProps> = () => {
                       outerRadius={100}
                       fill="transparent"
                       paddingAngle={2}
-                      dataKey="value"            
+                      dataKey="value"
                     >
                       {PieChartData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.fill}/>
+                        <Cell key={`cell-${index}`} fill={entry.fill} />
                       ))}
                     </Pie>
+                    <text
+                      x="50%"
+                      y="50%"
+                      textAnchor="middle"
+                      dominantBaseline="middle"
+                      fontSize={22}
+                      fill="#fff"
+                    >
+                      ₦1,324,450
+                    </text>
                   </PieChart>
                 </ResponsiveContainer>
               </Flex>
               <Flex justifyContent={"space-evenly"}>
                 {PieChartData.map((entry, index) => (
-                  <Flex alignItems={"center"} gap={2}>
+                  <Flex alignItems={"center"} gap={2} key={index}>
                     <FaSquare color={entry.fill} />
                     <Text color={"#fff"}>{entry.name}</Text>
                   </Flex>

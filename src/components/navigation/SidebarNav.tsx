@@ -367,7 +367,7 @@ const SidebarNav: FC<SidebarNavProps> = ({ children }) => {
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} profileData={profile} />
       <Box ml={{ base: 0, md: 60 }} py="4">
-        <Grid maxW={"520px"} px={'4'}>
+        <Grid maxW={"520px"} px={'4'} mb={'1rem'}>
           <Text color={"#EAEAEA"} fontSize={24} fontWeight={600}>
             {`Today is ${formattedDate}.`}
           </Text>
